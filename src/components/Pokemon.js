@@ -22,7 +22,9 @@ const Pokemon = ({ pokemonItem, evolutionUrl }) => {
           alt={pokemonItem.name}
         />
         <CardBody>
-          <CardTitle tag="h5">{pokemonItem.name}</CardTitle>
+          <CardTitle className="text-capitalize" tag="h3">
+            {pokemonItem.name}
+          </CardTitle>
           <CardText>
             <div>
               Types:
@@ -51,6 +53,7 @@ const Pokemon = ({ pokemonItem, evolutionUrl }) => {
           </CardText>
         </CardBody>
       </Card>
+      {/* To show evolved versions of child pokemons */}
       {modal && (
         <EvolutionList
           modal={modal}

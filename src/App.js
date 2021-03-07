@@ -16,6 +16,8 @@ class App extends Component {
 
   componentDidMount() {
     this.getPokemon();
+
+    //to add infinite scroll feature
     window.addEventListener("scroll", this.handleScroll);
   }
 
@@ -29,6 +31,7 @@ class App extends Component {
     }
   }
 
+  //infinite scroll controll
   handleScroll = () => {
     if (window.innerHeight + window.scrollY >= document.body.offsetHeight) {
       this.setState({
@@ -39,12 +42,15 @@ class App extends Component {
 
   getPokemon = () => {
     if (this.state.offsetValue === 0) {
+      //api to list child pokemons
       api
         .getPokemonEvolutionChain({ offset: 0, limit: 10 })
         .then((response) => {
           const results = get(response, "results", []);
           let promises = results.map((result) => {
+            //api for child evolution
             return axios.get(result.url).then((itemByName) => {
+              //api for pokemon data
               return axios
                 .get(
                   `https://pokeapi.co/api/v2/pokemon/${itemByName.data.chain.species.name}`
@@ -64,6 +70,7 @@ class App extends Component {
           });
         });
     } else {
+      //this will be called in infinite scroll
       const params = {
         offset: this.state.offsetValue + 10,
         limit: 10,
@@ -105,6 +112,7 @@ class App extends Component {
                 className="col-md-3 col-sm-4 col-xs-12 p-3"
                 key={`${item.name}_${item.id}${index}`}
               >
+                {/* Re-usable component to show Pokemon data */}
                 <Pokemon pokemonItem={item} evolutionUrl={pokemon.url} />
               </div>
             );
