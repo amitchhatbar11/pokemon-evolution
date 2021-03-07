@@ -2,7 +2,7 @@ In the project directory, you can run:
 
 ### `npm install`
 
-Then all the `node_modules` will be installed within yopur project.
+Then all the `node_modules` will be installed within your project.
 
 Next,
 
